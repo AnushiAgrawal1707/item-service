@@ -1,0 +1,11 @@
+spring:
+   application:
+     name: employee data service
+   datasource:
+     url: jdbc:postgresql://localhost:5432/mykart_data
+     username: postgres
+     password: root
+   jpa:
+     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+    port: 5050
