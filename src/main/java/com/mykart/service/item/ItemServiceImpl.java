@@ -22,7 +22,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemDTO getItem(int item_id) {
 
-        ResponseEntity<ItemDTO> result=template.getForEntity("http://localhost:7070/api/v1/warehouse/"+item_id,ItemDTO.class);
+        ResponseEntity<ItemDTO> result=template.getForEntity("http://localhost:7070/v1/warehouse/"+item_id,ItemDTO.class);
         ItemDTO item=result.getBody();
         System.out.println(item.toString());
         return item;
@@ -30,11 +30,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDTO updateItem(int item_id, int quantity) {
-        ResponseEntity<ItemDTO> result=template.getForEntity("http://localhost:7070/api/v1/warehouse/"+item_id,ItemDTO.class);
+        ResponseEntity<ItemDTO> result=template.getForEntity("http://localhost:7070/v1/warehouse/"+item_id,ItemDTO.class);
         ItemDTO item=result.getBody();
         System.out.println(item.toString());
         item.setInStock(item.getInStock()-quantity);
-       template.put("http://localhost:7070/api/v1/warehouse",item);
+       template.put("http://localhost:7070/v1/warehouse",item);
         return item;
     }
 }

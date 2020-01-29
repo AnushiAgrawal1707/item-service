@@ -5,7 +5,11 @@ spring:
      url: jdbc:postgresql://localhost:5432/mykart_data
      username: postgres
      password: root
+     initialization-mode: always
    jpa:
      properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+     properties.hibernate.ddl-auto: none
+     properties.generate-ddl: false
+     properties.show-sql: true
 server:
     port: 5050
