@@ -9,6 +9,7 @@ import com.mykart.service.cart.CartService;
 import com.mykart.validators.Identification;
 import io.swagger.annotations.*;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -47,62 +48,50 @@ public class CartController {
         return cartService.getAllItems(user_id);
     }
 
-//    /**
-//     *
-//     * @param user_id   Identifier of user
-//     * @param item_id      get specific Item with given Identifier
-//     * @return       ItemDTO
-//     * @throws ResourceNotFound   If Item with given identifier not found
-//     */
-//    @GetMapping("/{user_id}/carts/{item_id}")
-//    @ApiOperation(value = "Get Item of cart", response = ItemDTO.class)
-//    @ApiResponses(value = {@ApiResponse(code = 200, message = "Suceess|OK"),
-//            @ApiResponse(code = 401, message = "not authorized!"),
-//            @ApiResponse(code = 403, message = "forbidden!!!"),
-//            @ApiResponse(code = 404, message = "not found!!!")})
-//    public ItemDTO getItems( @ApiParam(value = "User id", required = true) @PathVariable("user_id") @Identification int user_id,@ApiParam(value = "item id", required = true) @PathVariable("item_id") int item_id) throws ResourceNotFound {
-//        log.debug("Executed CartController.getItems() to retrieve specific Item of  Cart");
-//        return cartService.getItemById(user_id,item_id);
-//    }
-
     /**
      *
      * @param user_id    Identifier of user
-     * @param cart       Cart object with item_id and quantity of item
+     * @param cartDTO       CartDTO object with item_id and quantity of item
      * @return           Cart
      */
     @PostMapping("/{user_id}/carts")
-    @ApiOperation(value = "Save Item object into Cart", response = Cart.class)
+    @ApiOperation(value = "Save Item object into Cart", response = CartDTO.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Suceess|OK"),
             @ApiResponse(code = 401, message = "not authorized!"),
             @ApiResponse(code = 403, message = "forbidden!!!"),
             @ApiResponse(code = 404, message = "not found!!!")})
-    public Cart addItemToCart(
+    public CartDTO addItemToCart(
             @ApiParam(value = "User id", required = true) @PathVariable("user_id") @Identification int user_id,
-            @ApiParam(value = "Cart object", required = true) @RequestBody Cart cart) throws OutOfStockException, ItemAlreadyPresentException {
+            @ApiParam(value = "Cart object", required = true) @RequestBody CartDTO cartDTO) throws OutOfStockException, ItemAlreadyPresentException {
         log.debug("Executed CartController.addItemToCart(cart) to save Item to cart ");
-        //System.out.println("arrived at cart controller");
-        return cartService.saveItem(user_id,cart);
+            Cart cart = new Cart();
+            BeanUtils.copyProperties(cartDTO,cart);
+            cart=cartService.saveItem(user_id,cart);
+            BeanUtils.copyProperties(cart,cartDTO);
+        return cartDTO;
     }
 
     /**
      *
      * @param user_id  Identifier of User
-     * @param cart     Cart object with item_id and quantity
+     * @param cartDTO     CartDTO object with item_id and quantity
      * @return      Cart
      */
     @PutMapping("/{user_id}/carts")
-    @ApiOperation(value = "Update cart object into the database", response = Cart.class)
+    @ApiOperation(value = "Update cart object into the database", response = CartDTO.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Suceess|OK"),
             @ApiResponse(code = 401, message = "not authorized!"),
             @ApiResponse(code = 403, message = "forbidden!!!"),
             @ApiResponse(code = 404, message = "not found!!!")})
-    public Cart updateItemInCart(
+    public CartDTO updateItemInCart(
             @ApiParam(value = "User id", required = true) @PathVariable("user_id") @Identification int user_id,
-            @ApiParam(value = "Cart object", required = true) @RequestBody Cart cart) throws ResourceNotFound, OutOfStockException {
+            @ApiParam(value = "Cart object", required = true) @RequestBody CartDTO cartDTO) throws ResourceNotFound, OutOfStockException {
         log.debug("Executed CartController.updateItemInCart(cart) to update Item to cart ");
-      //  System.out.println("arrived at cart controller");
-        return cartService.updateItemById(user_id,cart);
+        Cart cart = new Cart();
+        BeanUtils.copyProperties(cartDTO,cart);
+        cart=cartService.updateItemById(user_id,cart);
+        BeanUtils.copyProperties(cart,cartDTO);
+        return cartDTO;
     }
 
     /**

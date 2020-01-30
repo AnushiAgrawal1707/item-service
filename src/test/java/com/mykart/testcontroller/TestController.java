@@ -52,15 +52,15 @@ public class TestController {
     verify(userService, times(1)).getUserById(101);
   }      */
 
-  @Test
-  public void updateUserTest() throws ResourceNotFound {
-
-    User user = mock(User.class);
-    when(userService.getUserById(101)).thenReturn(user);
-    when(userService.updateUser(user)).thenReturn(user);
-    userController.updateUser(101, user);
-    verify(userService, times(1)).updateUser(user);
-  }
+//  @Test
+//  public void updateUserTest() throws ResourceNotFound {
+//
+//    User user = mock(User.class);
+//    when(userService.getUserById(101)).thenReturn(user);
+//    when(userService.updateUser(user)).thenReturn(user);
+//    userController.updateUser(101, user);
+//    verify(userService, times(1)).updateUser(user);
+//  }
 //   @Test
 //   public void deleteUserTest() throws ResourceNotFound {
 //      User user = mock(User.class);

@@ -50,19 +50,20 @@ public class TestUserServices {
         userService.saveUser(user);
         verify(userRepository,times(1)).save(user);
     }
-   @Test
-    public void updateUserTest()
-    {
-        User user=mock(User.class);
-        when(userRepository.save(user)).thenReturn(user);
-        userService.updateUser(user);
-        verify(userRepository,times(1)).save(user);
-    }
-    @Test
-    public void deleteUserTest()
-    {
-        User user=mock(User.class);
-        userService.deleteUser(user);
-        verify(userRepository,times(1)).delete(user);
-    }
+//   @Test
+//    public void updateUserTest()
+//    {
+//        User user=mock(User.class);
+//        when(userRepository.save(user)).thenReturn(user);
+//        userService.updateUser(user);
+//
+//        verify(userRepository,times(1)).save(user);
+//    }
+//    @Test
+//    public void deleteUserTest()
+//    {
+//        User user=mock(User.class);
+//        userService.deleteUser(user);
+//        verify(userRepository,times(1)).delete(user);
+//    }
 }
