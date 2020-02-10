@@ -1,0 +1,2 @@
+insert into items values(101,'dairy milk','cadbury','chocolates',100,60) on conflict(item_id) do nothing;
+insert into items values(102,'five star','cadbury','chocolates',50,10) on conflict(item_id) do nothing;

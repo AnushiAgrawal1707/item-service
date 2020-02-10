@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: "Item Service"
+  datasource:
+    url: jdbc:postgresql://${RDS_HOSTNAME:localhost}:${RDS_PORT:5431}/${RDS_DB_NAME:itemsdb}
+    username: ${RDS_USERNAME:postgres}
+    password: ${RDS_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+    initialize: true
+    initialization-mode: always
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    properties.hibernate.ddl-auto: update
+server:
+  port: 7070

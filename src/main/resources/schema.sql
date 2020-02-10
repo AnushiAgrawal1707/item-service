@@ -1,0 +1,1 @@
+create table if not exists items(item_id integer primary key, item_name text not null, seller_info text not null, category text not null, instock integer not null, price integer not null);
