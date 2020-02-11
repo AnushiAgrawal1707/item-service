@@ -1,5 +1,8 @@
 package com.mykart.exceptionhandler;
 
+import lombok.AllArgsConstructor;
+
+
 public class ErrorResponse {
 	
 	private String message;

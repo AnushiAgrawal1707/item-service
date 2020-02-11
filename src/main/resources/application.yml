@@ -1,15 +1,13 @@
 spring:
-   application:
-     name: employee data service
-   datasource:
-     url: jdbc:postgresql://localhost:5432/mykart_data
-     username: postgres
-     password: root
-     initialization-mode: always
-   jpa:
-     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-     properties.hibernate.ddl-auto: none
-     properties.generate-ddl: false
-     properties.show-sql: true
+  application:
+    name: "employee data service"
+  datasource:
+    password: ${DATABASE_PASSWORD:root}
+    url: "jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:mykart_data}"
+    username: ${DATABASE_USERNAME:root}
+    initialize: ture
+    initialization-mode: always
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.MySQLDialect
 server:
-    port: 5050
+  port: 5050

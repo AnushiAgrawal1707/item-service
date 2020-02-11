@@ -1,4 +1,50 @@
-create table if not exists users(user_id serial primary key, first_name text not null, last_name text not null, address varchar not null, mobile_no varchar not null, password varchar not null, email varchar not null, cart_id varchar unique);
-create table if not exists authenticate(username varchar primary key, password varchar not null, user_id int unique);
-create table if not exists cart(id serial primary key, item_id int not null, quantity varchar not null, price float not null, cart_id varchar unique, is_ordered integer default 0);
-create table if not exists orders(order_id serial primary key, user_id int not null, cart_id varchar unique, total_bill float not null);
+
+
+-- -----------------------------------------------------
+-- Schema mykart_data
+-- -----------------------------------------------------
+
+USE `mykart_data` ;
+
+-- -----------------------------------------------------
+-- Table `mykart_data`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mykart_data`.`user` (
+  `user_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NULL DEFAULT NULL,
+  `address` VARCHAR(50) NOT NULL,
+  `mobile_no` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(30) CHARACTER SET 'utf8' NOT NULL,
+  `cart_id` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`user_id`));
+
+
+-- -----------------------------------------------------
+-- Table `mykart_data`.`authenticate`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mykart_data`.`authenticate` (
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(20) NOT NULL,
+  `user_id` BIGINT(20) UNSIGNED NOT NULL,
+  UNIQUE INDEX `username` (`username` ASC) VISIBLE,
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `authenticate_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mykart_data`.`user` (`user_id`));
+
+
+-- -----------------------------------------------------
+-- Table `mykart_data`.`cart`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mykart_data`.`cart` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `item_id` BIGINT(20) NOT NULL,
+  `quantity` VARCHAR(50) NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `cart_id` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+

@@ -23,17 +23,11 @@ public class CartServiceImpl implements CartService {
 
   @Override
   public List<Cart> getAllItems(int user_id) {
-    List<ItemDTO> itemDTOList = new ArrayList<>();
+    
     User user = userService.getUserById(user_id);
     String cart_id = user.getCart_id();
     List<Cart> cartList = cartRepository.findByCartIdAndOrdered(cart_id, 0);
     System.out.println(cartList);
-    Iterator<Cart> iterator = cartList.iterator();
-    while (iterator.hasNext()) {
-      itemDTOList.add(itemService.getItem(iterator.next().getItem_id()));
-    }
-
-    System.out.println(itemDTOList);
 
     return cartList;
   }

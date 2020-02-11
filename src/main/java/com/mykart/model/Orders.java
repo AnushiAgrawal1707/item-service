@@ -1,8 +1,6 @@
 package com.mykart.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +9,8 @@ import javax.persistence.*;
 @Table(name="orders")
 @Entity
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Orders {
     @Id
     @Column(name = "order_id")

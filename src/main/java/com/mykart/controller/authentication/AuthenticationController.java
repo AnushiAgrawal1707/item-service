@@ -59,24 +59,6 @@ public class AuthenticationController {
     final String token = jwtTokenUtil.generateToken(userDetails);
     return ResponseEntity.ok(new JwtResponse(token));
   }
-  /**
-   * @param authenticationRequest jwtRequest with username and password
-   * @return return jwtResponse with token
-   * @throws Exception if username and password is not valid
-   */
-  @ApiOperation(value = "Create authentication token", response = JwtResponse.class)
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Suceess|OK"),
-          @ApiResponse(code = 401, message = "not authorized!"),
-          @ApiResponse(code = 403, message = "forbidden!!!")})
-  @PostMapping("/admin/login")
-  public ResponseEntity<?> createAuthenticationTokenForAdmin(@ApiParam(value = "Jwt Request Object", required = true)@RequestBody JwtRequest authenticationRequest)
-          throws Exception {
-    authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-    final UserDetails userDetails =
-            userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-    final String token = jwtTokenUtil.generateToken(userDetails);
-    return ResponseEntity.ok(new JwtResponse(token));
-  }
 
   /**
    * @param username 

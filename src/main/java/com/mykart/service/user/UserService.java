@@ -5,7 +5,6 @@ import com.mykart.model.User;
 import java.util.List;
 
 public interface UserService {
-    public Iterable<User> getAllUsers(int page, int size);
     public User getUserById(int user_id);
     public User saveUser(User emp);
     public void deleteUser(User emp);

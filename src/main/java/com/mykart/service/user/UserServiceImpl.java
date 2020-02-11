@@ -25,25 +25,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationService authService;
 
-    /**
-     *
-     * @param pageNo
-     * @param pageSize
-     * @return   List of all available user
-     */
-    @Override
-    public Iterable<User> getAllUsers(int pageNo, int pageSize)
-    {                           
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<User> users = userRepository.findAll(pageable);
-        System.out.println(users);
-        if(users.hasContent()) {
-            return users.getContent();
-        } else {
-            return new ArrayList<User>();
-        }
-
-    }
 
     /**
      *
@@ -67,6 +48,7 @@ public class UserServiceImpl implements UserService {
         User savedUser= userRepository.save(user);
         Authentication auth=new Authentication(user.getUser_id(),user.getFirst_name()+user.getUser_id(),user.getPassword());
         authService.saveUsername(auth);
+        System.out.println("User service save ");
         return savedUser;
     }
 
